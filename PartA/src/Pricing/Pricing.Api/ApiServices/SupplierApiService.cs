@@ -35,10 +35,10 @@ public sealed class SupplierApiService
             var s = await _supplierService.GetAsync(id, ct);
             return s is null ? TypedResults.NotFound() : TypedResults.Ok(s);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
 
-            throw ex;
+            throw;
         }
     }
 

@@ -28,7 +28,7 @@ public sealed class ProductRepository : IProductRepository
 
             return p?.MapToDto();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
 
             throw;
@@ -55,10 +55,10 @@ public sealed class ProductRepository : IProductRepository
 
             return p.Entity.MapToDto();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
 
-            throw ex;
+            throw;
         }
     }
 

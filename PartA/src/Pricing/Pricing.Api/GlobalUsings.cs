@@ -16,7 +16,7 @@ global using Pricing.Api.Utilities;
 global using Microsoft.AspNetCore.Http.Features;
 global using Microsoft.OpenApi.Models;
 global using Pricing.Api.Extensions;
-global using Pricing.Api.Services;
+global using Pricing.Api.ApiServices;
 global using Microsoft.Extensions.Caching.Memory;
 global using Pricing.Api.Endpoints;
 global using Pricing.Api.Clients;
