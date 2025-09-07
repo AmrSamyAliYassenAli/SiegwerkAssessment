@@ -3,14 +3,14 @@
 /// <summary>
 /// Provides a set of minimal API endpoints for managing and querying pricing data.
 /// </summary>
-public static class PricesEndpoints
+internal static class PricesEndpoints
 {
     /// <summary>
     /// Maps the pricing-related API endpoints to the application's route builder.
     /// </summary>
     /// <param name="app">The endpoint route builder to which the endpoints will be mapped.</param>
     /// <returns>The updated endpoint route builder.</returns>
-    public static IEndpointRouteBuilder MapPricesEndpoints(this IEndpointRouteBuilder app)
+    internal static IEndpointRouteBuilder MapPricesEndpoints(this IEndpointRouteBuilder app)
     {
         /// <summary>
         /// Uploads a price list from a CSV file.
@@ -59,7 +59,8 @@ public static class PricesEndpoints
                 }
             };
             return op;
-        });
+        }).WithTags("Prices")
+          .WithName("Upload");
 
         /// <summary>
         /// Retrieves a paginated and filtered list of price entries.
@@ -74,7 +75,9 @@ public static class PricesEndpoints
         /// <param name="ct">The cancellation token.</param>
         /// <returns>A paged result containing the filtered price entries.</returns>
         app.MapGet("/prices", (string? sku, DateOnly? validOn, string? currency, int? supplierId, int page, int pageSize, PriceListApiService svc, CancellationToken ct)
-            => svc.ListAsync(sku, validOn, currency, supplierId, page, pageSize, ct));
+            => svc.ListAsync(sku, validOn, currency, supplierId, page, pageSize, ct))
+          .WithTags("Prices")
+          .WithName("Get");
 
         /// <summary>
         /// Queries for the best price for a given SKU and quantity on a specific date.
@@ -87,7 +90,9 @@ public static class PricesEndpoints
         /// <param name="ct">The cancellation token.</param>
         /// <returns>The best price result or a not found result if no price is available.</returns>
         app.MapGet("/pricing/best", (string sku, int qty, string currency, DateOnly date, PriceListApiService svc, CancellationToken ct)
-            => svc.BestAsync(sku, qty, currency, date, ct));
+            => svc.BestAsync(sku, qty, currency, date, ct))
+          .WithTags("Prices")
+          .WithName("Best");
 
         return app;
     }

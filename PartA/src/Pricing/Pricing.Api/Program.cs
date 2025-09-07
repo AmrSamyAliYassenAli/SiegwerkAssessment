@@ -2,6 +2,11 @@ var builder = WebApplication.CreateBuilder(args);
 IServiceCollection services = builder.Services;
 IConfiguration configuration = builder.Configuration;
 IWebHostEnvironment environment = builder.Environment;
+IHostBuilder host = builder.Host;
+
+host.ConfigureSerilog();
+
+services.AddHealthChecksUtility(configuration);
 
 services.AddRefitUtility(configuration);
 
@@ -21,32 +26,53 @@ services.AddMemoryCache();
 
 using (var app = builder.Build())
 {
-	try
-	{
-        app.UseCors("AllowAll");
+    app.UseCors("AllowAll");
 
-        app.UseExceptionHandler();
+    app.MapHealthChecks("/health");
 
-        app.UseStaticFiles();
+    app.UseMiddleware<RequestLoggingMiddleware>();
 
-        app.UseStatusCodePages();
+    app.UseMiddleware<GlobalExceptionMiddleware>();
 
-        app.UseSwagger();
+    app.UseExceptionHandler();
 
-        app.UseSwaggerUI();
+    app.UseStaticFiles();
 
-        await app.ApplyMigrationsAndSeed<PricingDbContext>();
+    app.UseStatusCodePages();
 
-        app.MapSuppliersEndpoints();
+    app.UseSwagger();
 
-        app.MapProductsEndpoints();
+    app.UseSwaggerUI();
 
-        app.MapPricesEndpoints();
+    await app.ApplyMigrationsAndSeed<PricingDbContext>();
 
+    app.MapLivenessEndpoints();
+
+    app.MapReadinessEndpoints();
+
+    app.MapTestLogEndpoints();
+
+    app.MapSuppliersEndpoints();
+
+    app.MapProductsEndpoints();
+
+    app.MapPricesEndpoints();
+
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogInformation("Price API starting up...");
+    logger.LogInformation("Environment: {Environment}", app.Environment.EnvironmentName);
+    logger.LogInformation("Application Name: {ApplicationName}", builder.Environment.ApplicationName);
+
+    try
+    {
         app.Run();
     }
-	catch (Exception ex)
-	{
-		throw new(ex.Message);
-	}
+    catch (Exception ex)
+    {
+        logger.LogCritical(ex, "Application terminated unexpectedly");
+    }
+    finally
+    {
+        Log.CloseAndFlush();
+    }
 }

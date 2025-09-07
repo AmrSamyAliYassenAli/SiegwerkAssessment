@@ -2,14 +2,14 @@
 /// <summary>
 /// Provides a set of minimal API endpoints for managing products.
 /// </summary>
-public static class ProductsEndpoints
+internal static class ProductsEndpoints
 {
     /// <summary>
     /// Maps the product-related API endpoints to the application's route builder.
     /// </summary>
     /// <param name="app">The endpoint route builder to which the endpoints will be mapped.</param>
     /// <returns>The updated endpoint route builder.</returns>
-    public static IEndpointRouteBuilder MapProductsEndpoints(this IEndpointRouteBuilder app)
+    internal static IEndpointRouteBuilder MapProductsEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapGet()
             .WithTags("Products")

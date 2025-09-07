@@ -2,14 +2,14 @@
 /// <summary>
 /// Provides a set of minimal API endpoints for managing suppliers.
 /// </summary>
-public static class SuppliersEndpoints
+internal static class SuppliersEndpoints
 {
     /// <summary>
     /// Maps the supplier-related API endpoints to the application's route builder.
     /// </summary>
     /// <param name="app">The endpoint route builder to which the endpoints will be mapped.</param>
     /// <returns>The updated endpoint route builder.</returns>
-    public static IEndpointRouteBuilder MapSuppliersEndpoints(this IEndpointRouteBuilder app)
+    internal static IEndpointRouteBuilder MapSuppliersEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapGet()
           .WithTags("Suppliers")
