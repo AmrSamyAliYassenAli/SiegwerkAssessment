@@ -1,0 +1,6 @@
+services:
+  pricing.api:
+    image: ${DOCKER_REGISTRY-}pricingapi
+    build:
+      context: .
+      dockerfile: Pricing.Api\Dockerfile
