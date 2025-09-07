@@ -1,3 +1,4 @@
+# Total Time to finish this task is 20hrs
 # Price/ Pricing API (.NET 8 Minimal APIs)
 
 Manage suppliers, products, and price lists, and query the best price for a given SKU. Built with Minimal APIs, EF Core, and a Clean Architecture layout.
