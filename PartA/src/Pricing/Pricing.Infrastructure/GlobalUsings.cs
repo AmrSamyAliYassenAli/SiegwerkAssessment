@@ -1,0 +1,13 @@
+﻿global using Microsoft.EntityFrameworkCore;
+global using Pricing.Application.Interfaces.IRepositories;
+global using Pricing.Domain.Entities;
+global using Pricing.Infrastructure.Persistences;
+global using LinqKit;
+global using Pricing.Application.Dtos.Price;
+global using Pricing.Application.Dtos.Product;
+global using Pricing.Application.Interfaces.IServices;
+global using Pricing.Application.Dtos.Supplier;
+global using Pricing.Infrastructure.Mappers;
+global using System.Globalization;
+global using Pricing.Application.Interfaces.IProviders;
+global using Microsoft.Extensions.Caching.Memory;
