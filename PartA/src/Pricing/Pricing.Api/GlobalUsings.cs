@@ -19,3 +19,5 @@ global using Pricing.Api.Extensions;
 global using Pricing.Api.Services;
 global using Microsoft.Extensions.Caching.Memory;
 global using Pricing.Api.Endpoints;
+global using Pricing.Api.Clients;
+global using Refit;

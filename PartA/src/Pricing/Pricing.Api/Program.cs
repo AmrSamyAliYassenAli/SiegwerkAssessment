@@ -3,29 +3,15 @@ IServiceCollection services = builder.Services;
 IConfiguration configuration = builder.Configuration;
 IWebHostEnvironment environment = builder.Environment;
 
-services.Configure<FormOptions>(o => o.MultipartBodyLengthLimit = 100 * 1024 * 1024);
+services.AddRefitUtility(configuration);
 
 services.AddProblemDetails();
 
-services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", builder =>
-    {
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-    });
-});
+services.AddCorsUtility();
 
-services.Configure<IISServerOptions>(options =>
-{
-    options.MaxRequestBodySize = int.MaxValue;
-});
+services.AddRequestSizeUtility();
 
-services.AddEndpointsApiExplorer();
-
-services.AddSwaggerGen(c =>
-{
-    c.MapType<DateOnly>(() => new OpenApiSchema { Type = "string", Format = "date" });
-});
+services.AddSwaggerUtility();
 
 services.AddDatabase(configuration, environment);
 
@@ -33,26 +19,34 @@ services.AddInjections();
 
 services.AddMemoryCache();
 
-var app = builder.Build();
+using (var app = builder.Build())
+{
+	try
+	{
+        app.UseCors("AllowAll");
 
-app.UseCors("AllowAll");
+        app.UseExceptionHandler();
 
-app.UseExceptionHandler();
+        app.UseStaticFiles();
 
-app.UseStaticFiles();
+        app.UseStatusCodePages();
 
-app.UseStatusCodePages();
+        app.UseSwagger();
 
-app.UseSwagger();
+        app.UseSwaggerUI();
 
-app.UseSwaggerUI();
+        await app.ApplyMigrationsAndSeed<PricingDbContext>();
 
-await app.ApplyMigrationsAndSeed<PricingDbContext>();
+        app.MapSuppliersEndpoints();
 
-app.MapSuppliersEndpoints();
+        app.MapProductsEndpoints();
 
-app.MapProductsEndpoints();
+        app.MapPricesEndpoints();
 
-app.MapPricesEndpoints();
-
-app.Run();
+        app.Run();
+    }
+	catch (Exception ex)
+	{
+		throw new(ex.Message);
+	}
+}
