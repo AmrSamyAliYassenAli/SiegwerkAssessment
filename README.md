@@ -134,6 +134,14 @@ Lowest supplier ID
 Currency conversion: static in-memory provider
 Caching: in-memory short TTL for frequent best-price queries
 
+## Healthchecks
+- Liveness: `/health/live`
+- Readiness: `/health/ready`
+
+Test log: http://localhost:8080/testLog
+Live: http://localhost:8080/health/live
+Ready: http://localhost:8080/health/ready
+
 #Refit Clients (Optional)
 Use these if you want typed HTTP clients from other apps/tests:
 
@@ -146,7 +154,8 @@ dotnet test
 Includes unit tests for business rules and at least one integration test for best-price.
 
 #Troubleshooting
-SQLite “no such table”: ensure migrations ran or EnsureCreated() executed; delete old DB files in App_Data if schema changed.
-Swagger doesn’t show file input: The upload endpoint must accept [FromForm] IFormFile file and be marked as multipart/form-data in OpenAPI.
-500 on CSV upload: Don’t override Content-Type when using curl -F. Ensure dates are yyyy-MM-dd.
-Extra SQLite files (.db-wal, .db-shm): They’re normal when WAL is enabled. To avoid them, add ;Journal Mode=Delete to the connection string (slower).
+SQLite ï¿½no such tableï¿½: ensure migrations ran or EnsureCreated() executed; delete old DB files in App_Data if schema changed.
+Swagger doesnï¿½t show file input: The upload endpoint must accept [FromForm] IFormFile file and be marked as multipart/form-data in OpenAPI.
+500 on CSV upload: Donï¿½t override Content-Type when using curl -F. Ensure dates are yyyy-MM-dd.
+Extra SQLite files (.db-wal, .db-shm): Theyï¿½re normal when WAL is enabled. To avoid them, add ;Journal Mode=Delete to the connection string (slower).
+
