@@ -7,7 +7,7 @@
 /// <param name="Name">The name of the product.</param>
 /// <param name="Uom">The unit of measure for the product (e.g., "EA" for Each).</param>
 /// <param name="HazardClass">The hazard class of the product, if applicable.</param>
-public record CreateProductDto(
+public sealed record CreateProductDto(
     string Sku, 
     string Name, 
     string Uom, 

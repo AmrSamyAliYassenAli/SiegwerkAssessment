@@ -8,7 +8,7 @@
 /// <param name="SupplierId">The ID of the supplier to filter by.</param>
 /// <param name="Page">The page number for pagination.</param>
 /// <param name="PageSize">The number of items per page.</param>
-public record PriceFilter(
+public sealed record PriceFilter(
     string? Sku,
     DateOnly? ValidOn,
     string? Currency,

@@ -4,7 +4,7 @@
 /// These tests use an in-memory SQLite database to validate the CRUD (Create, Read, Update, Delete)
 /// operations and other key behaviors of the repository.
 /// </summary>
-public class SupplierRepositoryTests : IAsyncLifetime
+public sealed class SupplierRepositoryTests : IAsyncLifetime
 {
     private readonly SqliteConnection _conn = new("Data Source=:memory:");
     private PricingDbContext _db = null!;

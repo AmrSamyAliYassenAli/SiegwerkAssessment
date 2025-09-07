@@ -12,7 +12,7 @@
 /// <param name="UnitPrice">The unit price of the product from the winning supplier.</param>
 /// <param name="TotalPrice">The total calculated price for the specified quantity.</param>
 /// <param name="Reason">A detailed explanation of why this supplier was chosen as the best option.</param>
-public record BestPriceResultDto(
+public sealed record BestPriceResultDto(
     string Sku,
     int Quantity,
     string Currency,

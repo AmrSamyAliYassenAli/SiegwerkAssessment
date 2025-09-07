@@ -5,7 +5,7 @@
 /// This service acts as a mediator between the API endpoints and the underlying data repository,
 /// ensuring a clean separation of concerns.
 /// </summary>
-public class ProductApiService
+public sealed class ProductApiService
 {
     private readonly IProductService _productService;
 

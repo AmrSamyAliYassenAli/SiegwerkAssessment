@@ -1,7 +1,7 @@
 ﻿namespace Pricing.Infrastructure.Services;
 
 //<!inheritdoc/>
-public class SupplierService : ISupplierService
+public sealed class SupplierService : ISupplierService
 {
     private readonly ISupplierRepository _supplierRepository;
 

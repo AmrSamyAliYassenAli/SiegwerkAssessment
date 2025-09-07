@@ -5,7 +5,7 @@
 /// These tests use an in-memory SQLite database to ensure the repository correctly
 /// filters, paginates, and projects data into DTOs.
 /// </summary>
-public class PriceListRepositoryQueryTests : IAsyncLifetime
+public sealed class PriceListRepositoryQueryTests : IAsyncLifetime
 {
     private readonly SqliteConnection _conn = new("Data Source=:memory:");
     private PricingDbContext _db = null!;

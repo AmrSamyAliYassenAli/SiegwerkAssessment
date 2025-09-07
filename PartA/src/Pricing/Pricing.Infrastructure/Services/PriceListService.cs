@@ -1,7 +1,7 @@
 ﻿namespace Pricing.Infrastructure.Services;
 
 //<!inheritdoc />
-public class PriceListService : IPriceListService
+public sealed class PriceListService : IPriceListService
 {
     private readonly IPriceListRepository _priceListRepository;
 

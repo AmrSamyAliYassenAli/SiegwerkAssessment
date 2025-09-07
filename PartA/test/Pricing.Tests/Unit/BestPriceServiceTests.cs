@@ -5,7 +5,7 @@
 /// focusing on the core business logic of finding the optimal price.
 /// These tests use mock objects to isolate the service's behavior from its dependencies.
 /// </summary>
-public class BestPriceServiceTests
+public sealed class BestPriceServiceTests
 {
     /// <summary>
     /// Tests the primary logic of the <see cref="BestPriceService"/>. It verifies that the service

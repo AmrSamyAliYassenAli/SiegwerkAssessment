@@ -1,7 +1,7 @@
 ﻿namespace Pricing.Infrastructure.Providers;
 
 //<!inheritdoc />
-public class StaticRateProvider : IRateProvider
+public sealed class StaticRateProvider : IRateProvider
 {
 
     /// <summary>

@@ -4,7 +4,7 @@
 /// Provides a suite of integration tests for the pricing endpoints.
 /// These tests run against a full, in-memory web application instance.
 /// </summary>
-public class PricingEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
+public sealed class PricingEndpointsTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _factory;
 

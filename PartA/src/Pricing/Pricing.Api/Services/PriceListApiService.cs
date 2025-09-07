@@ -3,7 +3,7 @@
 /// <summary>
 /// Provides API-related services for managing and querying price lists, including uploading new data, listing existing entries, and finding the best price for a product.
 /// </summary>
-public class PriceListApiService
+public sealed class PriceListApiService
 {
     private readonly IPriceListService _priceListService;
     private readonly IBestPriceService _bestPriceService;

@@ -1,7 +1,7 @@
 ﻿namespace Pricing.Infrastructure.Services;
 
 //<!inheritdoc/>
-public class ProductService : IProductService
+public sealed class ProductService : IProductService
 {
     private readonly IProductRepository _productRepository;
 

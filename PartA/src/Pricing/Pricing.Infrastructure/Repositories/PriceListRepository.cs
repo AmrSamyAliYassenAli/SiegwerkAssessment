@@ -1,7 +1,7 @@
 ﻿namespace Pricing.Infrastructure.Repositories;
 
 //</inheritdoc />
-public class PriceListRepository : IPriceListRepository
+public sealed class PriceListRepository : IPriceListRepository
 {
     private readonly PricingDbContext _pricingDbContext;
 

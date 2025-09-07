@@ -5,7 +5,7 @@
 /// This service uses <see cref="IMemoryCache"/> to store query results,
 /// reducing redundant calls to the underlying service and improving performance.
 /// </summary>
-public class CachedBestPriceService : IBestPriceService
+public sealed class CachedBestPriceService : IBestPriceService
 {
     private readonly IBestPriceService _inner;
     private readonly IMemoryCache _memoryCache;

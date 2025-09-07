@@ -11,7 +11,7 @@
 /// <param name="Currency">The currency of the price.</param>
 /// <param name="PricePerUom">The price per unit of measure.</param>
 /// <param name="MinQty">The minimum quantity required to get this price.</param>
-public record PriceListDto(
+public sealed record PriceListDto(
     int SupplierId, 
     string Sku, 
     DateOnly ValidFrom, 

@@ -5,7 +5,7 @@
 /// These tests use mock objects to ensure that the service correctly handles both valid and invalid
 /// CSV data, specifically focusing on business rules such as date range overlaps.
 /// </summary>
-public class PriceListServiceCsvTests
+public sealed class PriceListServiceCsvTests
 {
     /// <summary>
     /// Tests that the service correctly rejects a CSV upload that contains overlapping date ranges

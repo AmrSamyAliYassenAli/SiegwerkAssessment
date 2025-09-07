@@ -8,7 +8,7 @@
 /// <param name="Name">The updated name of the product.</param>
 /// <param name="Uom">The updated unit of measure for the product.</param>
 /// <param name="HazardClass">The updated hazard class of the product.</param>
-public record UpdateProductDto(
+public sealed record UpdateProductDto(
     int Id,
     string Sku, 
     string Name, 

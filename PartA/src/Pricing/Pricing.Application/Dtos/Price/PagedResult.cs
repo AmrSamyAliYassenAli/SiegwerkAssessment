@@ -8,7 +8,7 @@
 /// <param name="PageSize">The number of items per page.</param>
 /// <param name="Total">The total number of items across all pages.</param>
 /// <param name="Items">The list of items for the current page.</param>
-public record PagedResult<T>(
+public sealed record PagedResult<T>(
     int Page, 
     int PageSize, 
     int Total, 

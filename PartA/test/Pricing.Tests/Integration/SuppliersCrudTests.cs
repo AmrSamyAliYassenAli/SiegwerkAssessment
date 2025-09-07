@@ -5,7 +5,7 @@
 /// These tests use an in-memory web application factory to perform end-to-end
 /// validation of the CRUD (Create, Read, Update, Delete) operations.
 /// </summary>
-public class SuppliersCrudTests : IClassFixture<WebApplicationFactory<Program>>
+public sealed class SuppliersCrudTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _client;
 

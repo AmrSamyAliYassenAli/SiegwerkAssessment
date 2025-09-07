@@ -5,7 +5,7 @@
 /// This service acts as a mediator between the API endpoints and the underlying data repository,
 /// ensuring a clean separation of concerns.
 /// </summary>
-public class SupplierApiService
+public sealed class SupplierApiService
 {
     private readonly ISupplierService _supplierService;
     /// <summary>
