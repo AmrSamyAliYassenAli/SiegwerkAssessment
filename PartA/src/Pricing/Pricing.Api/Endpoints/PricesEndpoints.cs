@@ -26,41 +26,63 @@ internal static class PricesEndpoints
         /// An <see cref="Ok"/> result if the upload is successful, otherwise a <see cref="ProblemHttpResult"/> with details about the failure.
         /// </returns>
         app.MapPost("/prices/upload", async Task<Results<Ok, ProblemHttpResult>> (
-            [FromForm] IFormFile file,
-            IPriceListService svc,
-            CancellationToken ct) =>
+          [FromForm] IFormFile file,
+          IPriceListService svc,
+          ILogger<Program> logger,
+          CancellationToken ct) =>
         {
-            if (file is null || file.Length == 0) return TypedResults.Problem(title: "Missing file", statusCode: 400);
-            using var stream = file.OpenReadStream();
-            var result = await svc.UploadCsvAsync(stream, ct);
-            return result is Ok ? TypedResults.Ok() : TypedResults.Problem(title: "Upload failed", statusCode: 400);
-        })
-        .WithMetadata(new ConsumesAttribute("multipart/form-data"))
-        .WithOpenApi(op =>
-        {
-            op.Summary = "Upload price list CSV";
-            op.RequestBody = new OpenApiRequestBody
+            try
             {
-                Required = true,
-                Content = new Dictionary<string, OpenApiMediaType>
-                {
-                    ["multipart/form-data"] = new OpenApiMediaType
-                    {
-                        Schema = new OpenApiSchema
-                        {
-                            Type = "object",
-                            Properties = new Dictionary<string, OpenApiSchema>
-                            {
-                                ["file"] = new OpenApiSchema { Type = "string", Format = "binary" }
-                            },
-                            Required = new HashSet<string> { "file" }
-                        }
-                    }
-                }
-            };
-            return op;
-        }).WithTags("Prices")
-          .WithName("Upload");
+                if (file is null || file.Length == 0)
+                    return TypedResults.Problem(
+                        title: "No file uploaded.",
+                        detail: "A file must be provided to this endpoint.",
+                        statusCode: (int)HttpStatusCode.BadRequest);
+
+                using var stream = file.OpenReadStream();
+                var result = await svc.UploadCsvAsync(stream, ct);
+
+                // Assuming the upload is successful, return an Ok result.
+                return TypedResults.Ok();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception for debugging purposes before returning a generic problem result.
+                logger.LogError(ex, "An unhandled exception occurred during file upload.");
+                return TypedResults.Problem(
+                    title: "Internal Server Error",
+                    detail: "An unexpected error occurred during the file upload process.",
+                    statusCode: (int)HttpStatusCode.InternalServerError);
+            }
+        })
+      .DisableAntiforgery()
+      .WithMetadata(new ConsumesAttribute("multipart/form-data"))
+      .WithOpenApi(op =>
+      {
+          op.Summary = "Upload price list CSV";
+          op.RequestBody = new OpenApiRequestBody
+          {
+              Required = true,
+              Content = new Dictionary<string, OpenApiMediaType>
+              {
+                  ["multipart/form-data"] = new OpenApiMediaType
+                  {
+                      Schema = new OpenApiSchema
+                      {
+                          Type = "object",
+                          Properties = new Dictionary<string, OpenApiSchema>
+                          {
+                              ["file"] = new OpenApiSchema { Type = "string", Format = "binary" }
+                          },
+                          Required = new HashSet<string> { "file" }
+                      }
+                  }
+              }
+          };
+          return op;
+      })
+      .WithTags("Prices")
+      .WithName("Upload");
 
         /// <summary>
         /// Retrieves a paginated and filtered list of price entries.

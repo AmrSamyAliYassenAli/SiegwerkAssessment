@@ -1,3 +1,5 @@
+using Microsoft.Extensions.FileProviders;
+
 var builder = WebApplication.CreateBuilder(args);
 IServiceCollection services = builder.Services;
 IConfiguration configuration = builder.Configuration;
@@ -5,6 +7,8 @@ IWebHostEnvironment environment = builder.Environment;
 IHostBuilder host = builder.Host;
 
 host.ConfigureSerilog();
+
+//services.AddAntiforgery();
 
 services.AddHealthChecksUtility(configuration);
 
@@ -26,6 +30,8 @@ services.AddMemoryCache();
 
 using (var app = builder.Build())
 {
+    //app.UseAntiforgery();
+
     app.UseCors("AllowAll");
 
     app.MapHealthChecks("/health");
@@ -36,7 +42,12 @@ using (var app = builder.Build())
 
     app.UseExceptionHandler();
 
-    app.UseStaticFiles();
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(
+            Path.Combine(Directory.GetCurrentDirectory(), "StaticFiles")),
+        RequestPath = "/upload"
+    }); 
 
     app.UseStatusCodePages();
 

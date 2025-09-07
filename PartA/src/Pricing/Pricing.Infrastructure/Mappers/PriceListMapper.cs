@@ -31,7 +31,7 @@ internal static class PriceListMapper
     internal static PriceListEntry MapToEntity(this PriceListDto priceListEntryDto)
         => new PriceListEntry
         {
-            Id = priceListEntryDto.Id!.Value,
+            Id = priceListEntryDto.Id ?? 0,
             SupplierId = priceListEntryDto.SupplierId,
             Sku = priceListEntryDto.Sku,
             ValidFrom = priceListEntryDto.ValidFrom,
