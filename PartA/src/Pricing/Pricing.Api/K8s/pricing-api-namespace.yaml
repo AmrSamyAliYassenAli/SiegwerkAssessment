@@ -1,0 +1,7 @@
+﻿apiVersion: v1
+kind: Namespace
+metadata:
+  name: price-api
+  labels:
+    name: price-api
+    app: price-api
