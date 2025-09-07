@@ -1,4 +1,4 @@
-﻿namespace Pricing.Api.Services;
+﻿namespace Pricing.Api.ApiServices;
 
 /// <summary>
 /// Provides API-related services for managing and querying price lists, including uploading new data, listing existing entries, and finding the best price for a product.

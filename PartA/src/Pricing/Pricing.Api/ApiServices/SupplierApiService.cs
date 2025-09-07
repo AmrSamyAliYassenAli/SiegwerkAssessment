@@ -1,4 +1,4 @@
-﻿namespace Pricing.Api.Services;
+﻿namespace Pricing.Api.ApiServices;
 
 /// <summary>
 /// Provides a service layer for handling supplier-related API operations.
