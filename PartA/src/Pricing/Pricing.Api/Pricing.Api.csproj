@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="StaticFiles\" />
   </ItemGroup>
 
 </Project>

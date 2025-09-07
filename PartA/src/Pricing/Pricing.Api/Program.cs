@@ -1,5 +1,3 @@
-using Microsoft.Extensions.FileProviders;
-
 var builder = WebApplication.CreateBuilder(args);
 IServiceCollection services = builder.Services;
 IConfiguration configuration = builder.Configuration;
@@ -7,8 +5,6 @@ IWebHostEnvironment environment = builder.Environment;
 IHostBuilder host = builder.Host;
 
 host.ConfigureSerilog();
-
-//services.AddAntiforgery();
 
 services.AddHealthChecksUtility(configuration);
 
@@ -30,8 +26,6 @@ services.AddMemoryCache();
 
 using (var app = builder.Build())
 {
-    //app.UseAntiforgery();
-
     app.UseCors("AllowAll");
 
     app.MapHealthChecks("/health");

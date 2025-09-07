@@ -6,13 +6,12 @@ namespace Pricing.Infrastructure.Repositories;
 public sealed class PriceListRepository : IPriceListRepository
 {
     private readonly PricingDbContext _pricingDbContext;
-    private readonly ILogger<PriceListRepository> _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PriceListRepository"/> class.
     /// </summary>
     /// <param name="pricingDbContext">The database context.</param>
-    public PriceListRepository(PricingDbContext pricingDbContext, ILogger<PriceListRepository> logger) => (_pricingDbContext, _logger) = (pricingDbContext, logger);
+    public PriceListRepository(PricingDbContext pricingDbContext) => (_pricingDbContext) = (pricingDbContext);
 
     //</inheritdoc />
     public async Task<PagedResult<PriceListDto>> ListAsync(PriceFilter filter, CancellationToken ct)
@@ -52,9 +51,8 @@ public sealed class PriceListRepository : IPriceListRepository
             _pricingDbContext.PriceListEntries.AddRange(entities);
             await _pricingDbContext.SaveChangesAsync(ct);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            _logger.LogCritical(ex, "Error adding price list entries");
             throw;
         }
     }
