@@ -10,11 +10,14 @@ public sealed class ProductRepository : IProductRepository
 
     //<!inheritdoc />
     public async Task<ProductDto?> GetBySkuAsync(string sku, CancellationToken ct)
-        => await _pricingDbContext
+    {
+        var entity = await _pricingDbContext
         .Products
         .AsNoTracking()
-        .Select(p => p.MapToDto())
         .FirstOrDefaultAsync(p => p.Sku == sku, ct);
+
+        return entity?.MapToDto();
+    }
 
     //<!inheritdoc />
     public async Task<ProductDto?> GetAsync(int id, CancellationToken ct)
