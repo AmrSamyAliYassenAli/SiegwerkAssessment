@@ -160,3 +160,5 @@ Swagger doesn�t show file input: The upload endpoint must accept [FromForm] IF
 500 on CSV upload: Don�t override Content-Type when using curl -F. Ensure dates are yyyy-MM-dd.
 Extra SQLite files (.db-wal, .db-shm): They�re normal when WAL is enabled. To avoid them, add ;Journal Mode=Delete to the connection string (slower).
 
+#Deployment
+Repository have Dockerfile, Docker-Compose & K8s files [Namespace, Deployment, NodePort Service].yaml
