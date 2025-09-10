@@ -36,13 +36,6 @@ using (var app = builder.Build())
 
     app.UseExceptionHandler();
 
-    app.UseStaticFiles(new StaticFileOptions
-    {
-        FileProvider = new PhysicalFileProvider(
-            Path.Combine(Directory.GetCurrentDirectory(), "StaticFiles")),
-        RequestPath = "/upload"
-    }); 
-
     app.UseStatusCodePages();
 
     app.UseSwagger();
